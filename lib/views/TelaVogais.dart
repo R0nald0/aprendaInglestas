@@ -42,6 +42,14 @@ class TelaVogaisState extends State<TelaVogais>{
      await audioCache.play(audioName);
   }
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    audioCache.loadAll(audios);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,32 +59,28 @@ class TelaVogaisState extends State<TelaVogais>{
                    Expanded(
                       child: ListView.builder(
                           itemCount: numeros.length,
-                          itemBuilder: (context,index){
-
-
-                            return ListTile(
-                            title: Row(
-                                children: <Widget>[
-
-                                     Image.asset(numeros[index],height: 80,width: 80,),
-                                     Padding(
-                                       padding: EdgeInsets.only(left: 170),
+                          itemBuilder: (context,index) {
+                            return Dismissible(
+                              key: Key(DateTime.now().microsecondsSinceEpoch.toString()),
+                              child: ListTile(
+                                title: Row(
+                                  children: <Widget>[
+                                    Image.asset(numeros[index],height: 80,width: 80,),
+                                    Padding(padding: EdgeInsets.only(left: 180),
                                         child: GestureDetector(
-                                            onTap: (){
-                                              play(audios[index]);
-                                            },
-                                            child:  Image.asset("assets/imagens/executar.png",height: 50,width: 50)
-                                        ),
-
-                                     ),
-
-                                ],
-                            ),
-
+                                          onTap: (){
+                                            play(audios[index]);
+                                          },
+                                          child: Image.asset("assets/imagens/executar.png",height: 40,width: 40,),
+                                        )
+                                    )
+                                  ],
+                                ),
+                              ),
                             );
                           }
                       )
-                  ),
+                  )
 
                 ],
              ),
